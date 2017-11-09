@@ -19,6 +19,7 @@ RUN \
             wget \
             \
             git \
+            make \
             \
     && \
     echo "===> Cleaning up ..."  && \
