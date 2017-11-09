@@ -38,6 +38,13 @@ RUN \
   yarn --version &&\
   git --version
 
+# # ----------------------------------------------------------------------------------------
+# RUN \
+#      groupadd -r nodejs \
+#   && useradd -m -r -g nodejs nodejs
+#
+# USER nodejs
+#
 # ----------------------------------------------------------------------------------------
 RUN mkdir -p /opt/app /opt/log /opt/data
 WORKDIR      /opt/app
