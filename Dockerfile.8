@@ -16,3 +16,9 @@ RUN \
   npm --version && \
   yarn --version &&\
   git --version
+
+# ----------------------------------------------------------------------------------------
+RUN mkdir -p /opt/app /opt/log /opt/data
+WORKDIR      /opt/app
+
+CMD [ "yarn", "run", "do-run" ]
