@@ -29,11 +29,11 @@ services:
       #   - NODE_PORT=8088
       #   - ENTRYPOINT_ROOT_DIR=/opt/app
 
-  node-8-alpine-pm2:
-    image: ez123/node:8-alpine-pm2
+  node-8-alpine-pmx:
+    image: ez123/node:8-alpine-pmx
     build:
       context:   .
-      dockerfile: ./Dockerfile.8-alpine-pm2
+      dockerfile: ./Dockerfile.8-alpine-pmx
       # args:
       #   - NODE_ENV=production
       #   - NODE_PORT=8088
