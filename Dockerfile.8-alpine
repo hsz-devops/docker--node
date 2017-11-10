@@ -38,6 +38,10 @@ RUN \
   yarn --version &&\
   git --version
 
+# ----------------------------------------------------------------------------------------
+COPY ./_docker/_runt/  /opt/runt/
+RUN  chmod -R a+X      /opt/runt/*.sh || true
+
 # # ----------------------------------------------------------------------------------------
 # RUN \
 #      groupadd -r nodejs \
@@ -49,4 +53,5 @@ RUN \
 RUN mkdir -p /opt/app /opt/log /opt/data
 WORKDIR      /opt/app
 
-CMD [ "yarn", "run", "do-run" ]
+ENTRYPOINT [ "/opt/runt/entrypoint.sh" ]
+CMD        [ "yarn", "run", "do-run" ]
