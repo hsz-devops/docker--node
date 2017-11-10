@@ -10,7 +10,7 @@ version: "2.3"
 services:
 
   node-8:
-    image: node:8
+    image: ez123/node:8
     build:
       context:   .
       dockerfile: ./Dockerfile.8
@@ -20,7 +20,7 @@ services:
       #   - ENTRYPOINT_ROOT_DIR=/opt/app
 
   node-8-alpine:
-    image: node:8-alpine
+    image: ez123/node:8-alpine
     build:
       context:   .
       dockerfile: ./Dockerfile.8-alpine
@@ -30,7 +30,7 @@ services:
       #   - ENTRYPOINT_ROOT_DIR=/opt/app
 
   node-8-alpine-pm2:
-    image: node:8-alpine-pm2
+    image: ez123/node:8-alpine-pm2
     build:
       context:   .
       dockerfile: ./Dockerfile.8-alpine-pm2

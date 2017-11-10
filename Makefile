@@ -1,5 +1,9 @@
 
 
+.PHONY: pull
+pull:
+	docker-compose pull --parallel
+
 .PHONY: build
 build:
 	docker-compose build --force-rm --pull
