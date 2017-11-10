@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 #
-# v1.2.0   webmaster@highskillz.com
+# v1.2.1   webmaster@highskillz.com
 #
 set -e
 set -o pipefail
-# set -x
-# pwd
+set -x
+pwd
 
-[ "${ENTRYPOINT_CWD}" == "" ] || cd "${ENTRYPOINT_CWD}"
+[ "${ENTRYPOINT_ROOT_DIR}" == "" ] || cd "${ENTRYPOINT_ROOT_DIR}"
 
-# using exec to allow command to have PID 1
+# using exec to transfer PID 1 to whatever is executed
 exec "$@"

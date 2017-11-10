@@ -1,0 +1,40 @@
+---
+# v1.2.1   webmaster@highskillz.com
+# 
+# using docker-compose to make builds easier
+#   docker-compose build --force-rm --pull
+#   docker-compose build --force-rm --pull --no-cache
+#
+version: "2.3"
+
+services:
+
+  node-8:
+    image: node:8
+    build:
+      context:   .
+      dockerfile: ./Dockerfile.8
+      # args:
+      #   - NODE_ENV=production
+      #   - NODE_PORT=8088
+      #   - ENTRYPOINT_ROOT_DIR=/opt/app
+
+  node-8-alpine:
+    image: node:8-alpine
+    build:
+      context:   .
+      dockerfile: ./Dockerfile.8-alpine
+      # args:
+      #   - NODE_ENV=production
+      #   - NODE_PORT=8088
+      #   - ENTRYPOINT_ROOT_DIR=/opt/app
+
+  node-8-alpine-pm2:
+    image: node:8-alpine-pm2
+    build:
+      context:   .
+      dockerfile: ./Dockerfile.8-alpine-pm2
+      # args:
+      #   - NODE_ENV=production
+      #   - NODE_PORT=8088
+      #   - ENTRYPOINT_ROOT_DIR=/opt/app
