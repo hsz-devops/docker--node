@@ -22,36 +22,51 @@ RUN \
             \
             git \
             make \
-            \
+    \
     && \
     yarn global add \
         pm2 \
         nodemon \
+        forever \
+    \
     && \
+    echo "===> Checking versions..."  && \
+    node --version && \
+    npm --version  && \
+    yarn --version && \
+    git --version  && \
+    \
+    pm2     --version && \
+    nodemon --version && \
+    forever --version && \
+    \
+    git --version && \
+    \
     echo "===> Cleaning up ..."  && \
     yarn cache clean \
     && \
     \
     rm -rf \
       "${HOME}/.cache" \
-       /var/cache/apk/* \
-       /tmp/*               \
-       /var/tmp/*           \
+      "${HOME}/.config" \
+      "${HOME}/.pm2" \
+      /var/cache/apk/* \
+      /tmp/*               \
+      /var/tmp/*           \
     && \
     \
     echo "OK!"
 
-RUN \
-  node --version && \
-  npm --version && \
-  yarn --version &&\
-  pm2     --version && rm -rf /root/.pm2    && \
-  nodemon --version && rm -rf /root/.config && \
-  git --version
 
 # ----------------------------------------------------------------------------------------
-COPY ./_docker/docker-entrypoint.sh  /docker-entrypoint.sh
-RUN  chmod -R a+X                    /docker-entrypoint.sh
+COPY ./_docker/docker-entrypoint.pmx.sh  /docker-entrypoint.sh
+RUN  chmod -R a+X                        /docker-entrypoint.sh
+
+ARG MONITORING_TYPE
+ENV MONITORING_TYPE="${MONITORING_TYPE:-pm2}"
+
+ARG MONITORING_CLI_ARGS
+ENV MONITORING_CLI_ARGS="${MONITORING_CLI_ARGS:-pm2.json}"
 
 # # ----------------------------------------------------------------------------------------
 # RUN \
@@ -69,4 +84,4 @@ EXPOSE 80 443
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 #CMD        [ "yarn", "run", "do-run-pm2" ]
 #CMD        [ "yarn", "run", "do-run-ndm" ]
-CMD        [ "pm2-docker", "start", "--auto-exit", "--env", "production", "process.yml" ]
+#CMD        [ "pm2-docker", "start", "--auto-exit", "--env", "production", "process.yml" ]

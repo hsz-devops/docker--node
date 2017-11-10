@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
-# v1.3.1    2017-11-10    webmaster@highskillz.com
+# v1.4.2    2017-11-10    webmaster@highskillz.com
 #
 set -e
 set -o pipefail
-#set -x
+set -x
 pwd
 
 [ "${ENTRYPOINT_ROOT_DIR}" == "" ] || cd "${ENTRYPOINT_ROOT_DIR}"

@@ -20,23 +20,25 @@ RUN \
             \
             git \
             make \
-            \
+    \
     && \
+    echo "===> Checking versions..."  && \
+    node --version && \
+    npm --version  && \
+    yarn --version && \
+    git --version  && \
+    \
     echo "===> Cleaning up ..."  && \
     rm -rf \
+      "${HOME}/.config" \
       "${HOME}/.cache" \
-       /var/cache/apk/* \
-       /tmp/*               \
-       /var/tmp/*           \
+      /var/cache/apk/* \
+      /tmp/*           \
+      /var/tmp/*       \
     && \
     \
     echo "OK!"
 
-RUN \
-  node --version && \
-  npm --version && \
-  yarn --version &&\
-  git --version
 
 # ----------------------------------------------------------------------------------------
 COPY ./_docker/docker-entrypoint.sh  /docker-entrypoint.sh
