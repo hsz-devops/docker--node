@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# v1.2.1   webmaster@highskillz.com
+# v1.3.1    2017-11-10    webmaster@highskillz.com
 #
 set -e
 set -o pipefail
@@ -10,4 +10,9 @@ pwd
 [ "${ENTRYPOINT_ROOT_DIR}" == "" ] || cd "${ENTRYPOINT_ROOT_DIR}"
 
 # using exec to transfer PID 1 to whatever is executed
-exec "$@"
+if [ -e ./entrypoint-cmd.sh ]; then
+    # hook for something else
+    exec ./entrypoint-cmd.sh "$@"
+else
+    exec "$@"
+fi
