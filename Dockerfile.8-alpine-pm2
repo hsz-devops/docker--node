@@ -8,7 +8,7 @@ RUN \
         nodemon \
     && \
     echo "===> Cleaning up ..."  && \
-    yarn cache clean && \
+    yarn cache clean \
     && \
     \
     echo "OK!"
