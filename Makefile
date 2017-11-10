@@ -1,4 +1,6 @@
 
+.PHONY: all
+all: build
 
 .PHONY: pull
 pull:
