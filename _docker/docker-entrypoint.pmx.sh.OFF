@@ -11,10 +11,8 @@ pwd
 
 # using exec to transfer PID 1 to whatever is executed
 
-[ "${MONITORING_TYPE}" == "pm2" ] && MONITORING_TYPE="pm2-docker"
-
 case "${MONITORING_TYPE}" in
-    "pm2-docker")
+    "pm2-docker"|"pm2")
         exec pm2-docker start --auto-exit "${MONITORING_CLI_ARGS}" "$@"
         ;;
     "forever")
