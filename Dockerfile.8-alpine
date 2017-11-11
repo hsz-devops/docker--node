@@ -55,8 +55,6 @@ RUN  chmod -R a+X                    /docker-entrypoint.sh
 RUN mkdir -p /opt/app /opt/log /opt/data
 WORKDIR      /opt/app
 
-EXPOSE 80 443
-
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 #CMD        [ "yarn", "run", "do-run" ]
 CMD        [ "node", "./index.js" ]

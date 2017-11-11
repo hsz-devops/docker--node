@@ -79,8 +79,6 @@ ENV MONITORING_CLI_ARGS="${MONITORING_CLI_ARGS:-pm2.json}"
 RUN mkdir -p /opt/app /opt/log /opt/data
 WORKDIR      /opt/app
 
-EXPOSE 80 443
-
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 #CMD        [ "yarn", "run", "do-run-pm2" ]
 #CMD        [ "yarn", "run", "do-run-ndm" ]
