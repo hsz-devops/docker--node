@@ -4,15 +4,19 @@
 #
 set -e
 set -o pipefail
-set -x
 pwd
 
-[ "${ENTRYPOINT_ROOT_DIR}" == "" ] || cd "${ENTRYPOINT_ROOT_DIR}"
+if [ "${ENTRYPOINT_ROOT_DIR}" != "" ]; then
+    cd "${ENTRYPOINT_ROOT_DIR}"
+    pwd
+fi
 
 # using exec to transfer PID 1 to whatever is executed
 if [ -e /opt/runt/entrypoint-cmd.sh ]; then
     # hook for something else
+    set -x
     exec /opt/runt/entrypoint-cmd.sh "$@"
 else
+    set -x
     exec "$@"
 fi

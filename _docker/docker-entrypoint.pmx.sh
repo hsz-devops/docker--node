@@ -4,21 +4,32 @@
 #
 set -e
 set -o pipefail
-set -x
 pwd
 
-[ "${ENTRYPOINT_ROOT_DIR}" == "" ] || cd "${ENTRYPOINT_ROOT_DIR}"
+if [ "${ENTRYPOINT_ROOT_DIR}" != "" ]; then
+    cd "${ENTRYPOINT_ROOT_DIR}"
+    pwd
+fi
 
 # using exec to transfer PID 1 to whatever is executed
 
 case "${MONITORING_TYPE}" in
     "pm2"|"pm2-docker"|"pm2-dev"|"pm2-runtime")
+        echo "pmx command: [${MONITORING_TYPE}]"
+        echo "pmx cli-arg: [${MONITORING_CLI_ARGS}]"
+        set -x
         exec ${MONITORING_TYPE} start --auto-exit ${MONITORING_CLI_ARGS} "$@"
         ;;
     "forever")
+        echo "pmx command: [${MONITORING_TYPE}]"
+        echo "pmx cli-arg: [${MONITORING_CLI_ARGS}]"
+        set -x
         exec forever    start             ${MONITORING_CLI_ARGS} "$@"
         ;;
     "nodemon")
+        echo "pmx command: [${MONITORING_TYPE}]"
+        echo "pmx cli-arg: [${MONITORING_CLI_ARGS}]"
+        set -x
         exec nodemon          --exitcrash ${MONITORING_CLI_ARGS} "$@"
         ;;
 esac
@@ -28,7 +39,9 @@ esac
 
 if [ -e /opt/runt/entrypoint-cmd.sh ]; then
     # hook for something else
+    set -x
     exec /opt/runt/entrypoint-cmd.sh "$@"
 else
+    set -x
     exec "$@"
 fi
