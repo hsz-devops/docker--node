@@ -12,8 +12,8 @@ pwd
 # using exec to transfer PID 1 to whatever is executed
 
 case "${MONITORING_TYPE}" in
-    "pm2-docker"|"pm2")
-        exec pm2-docker start --auto-exit ${MONITORING_CLI_ARGS} "$@"
+    "pm2"|"pm2-docker"|"pm2-dev"|"pm2-runtime")
+        exec ${MONITORING_TYPE} start --auto-exit ${MONITORING_CLI_ARGS} "$@"
         ;;
     "forever")
         exec forever    start             ${MONITORING_CLI_ARGS} "$@"
@@ -32,4 +32,3 @@ if [ -e /opt/runt/entrypoint-cmd.sh ]; then
 else
     exec "$@"
 fi
-;;
