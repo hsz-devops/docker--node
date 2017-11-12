@@ -18,3 +18,9 @@ build:
 .PHONY: rebuild
 rebuild:
 	docker-compose build --force-rm --pull --no-cache
+
+.PHONY: purge
+purge:
+	docker rm  $$(docker ps -a -q)                      || true
+	docker rmi $$(docker images -q -f dangling=true)    || true
+

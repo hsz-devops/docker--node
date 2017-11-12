@@ -59,16 +59,14 @@ RUN \
 
 
 # ----------------------------------------------------------------------------------------
-# COPY ./_docker/docker-entrypoint.pmx.sh  /docker-entrypoint.sh
-COPY ./_docker/docker-entrypoint.sh  /docker-entrypoint.sh
-RUN  chmod -R a+X                    /docker-entrypoint.sh
+COPY ./_docker/docker-entrypoint.pmx.sh  /docker-entrypoint.sh
+RUN  chmod -R a+X                        /docker-entrypoint.sh
 
-# ARG MONITORING_TYPE
-# # ENV MONITORING_TYPE="${MONITORING_TYPE:-pm2}"
-#
-# ARG MONITORING_CLI_ARGS
-# # ENV MONITORING_CLI_ARGS="${MONITORING_CLI_ARGS:-pm2.json}"
-#
+ARG MONITORING_TYPE
+ENV MONITORING_TYPE=${MONITORING_TYPE}
+
+ARG MONITORING_CLI_ARGS
+ENV MONITORING_CLI_ARGS=${MONITORING_CLI_ARGS}
 
 # # ----------------------------------------------------------------------------------------
 # RUN \
