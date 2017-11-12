@@ -9,6 +9,16 @@ version: "2.3"
 
 services:
 
+  node-8-ubuntu:
+    image: ez123/node:8-ubuntu
+    build:
+      context:   .
+      dockerfile: ./Dockerfile.8-ubuntu
+      # args:
+      #   - NODE_ENV=production
+      #   - NODE_PORT=8088
+      #   - ENTRYPOINT_ROOT_DIR=/opt/app
+
   node-8:
     image: ez123/node:8
     build:
@@ -19,21 +29,11 @@ services:
       #   - NODE_PORT=8088
       #   - ENTRYPOINT_ROOT_DIR=/opt/app
 
-  node-8-alpine:
-    image: ez123/node:8-alpine
+  node-8-pmx:
+    image: ez123/node:8-pmx
     build:
       context:   .
-      dockerfile: ./Dockerfile.8-alpine
-      # args:
-      #   - NODE_ENV=production
-      #   - NODE_PORT=8088
-      #   - ENTRYPOINT_ROOT_DIR=/opt/app
-
-  node-8-alpine-pmx:
-    image: ez123/node:8-alpine-pmx
-    build:
-      context:   .
-      dockerfile: ./Dockerfile.8-alpine-pmx
+      dockerfile: ./Dockerfile.8-pmx
       # args:
       #   - NODE_ENV=production
       #   - NODE_PORT=8088

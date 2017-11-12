@@ -1,0 +1,37 @@
+FROM node:8
+
+RUN \
+  apt-get update && \
+  apt-get install --no-install-recommends -y \
+    \
+    less \
+    nano \
+    \
+  && \
+  apt-get remove software-properties-common -y && \
+  apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN \
+  node --version && \
+  npm --version && \
+  yarn --version &&\
+  git --version
+
+# ----------------------------------------------------------------------------------------
+COPY ./_docker/docker-entrypoint.sh  /docker-entrypoint.sh
+RUN  chmod -R a+X                    /docker-entrypoint.sh
+
+# # ----------------------------------------------------------------------------------------
+# RUN \
+#      groupadd -r nodejs \
+#   && useradd -m -r -g nodejs nodejs
+#
+# USER nodejs
+#
+# ----------------------------------------------------------------------------------------
+RUN mkdir -p /opt/app /opt/log /opt/data
+WORKDIR      /opt/app
+
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
+#CMD        [ "yarn", "run", "do-run" ]
+CMD        [ "node", "./index.js" ]
