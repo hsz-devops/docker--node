@@ -1,5 +1,13 @@
 FROM node:8-alpine
 
+# ----------------------------------------------------------------------------------------
+ARG AZ__OPENSSH_SERVER__ENABLE
+ENV AZ__OPENSSH_SERVER__ENABLE=${AZ__OPENSSH_SERVER__ENABLE:-0}
+
+ARG AZ__OPENSSH_SERVER__PASSWD
+ENV AZ__OPENSSH_SERVER__PASSWD=${AZ__OPENSSH_SERVER__PASSWD:-root:Docker!}
+
+# ----------------------------------------------------------------------------------------
 RUN \
     echo "===> Updating TLS certificates..."         && \
     apk --update add \
@@ -28,13 +36,23 @@ RUN \
     yarn --version && \
     git --version  && \
     \
+    git --version && \
+    \
+    && \
+    echo "===> OpenSSH Setup..."  && \
+        apk --update add \
+        openssh \
+        tcptraceroute \
+    && echo "cd ~" >> /etc/bash.bashrc \
+    \
+    && \
     echo "===> Cleaning up ..."  && \
     rm -rf \
+      "${HOME}/.cache"  \
       "${HOME}/.config" \
-      "${HOME}/.cache" \
-      /var/cache/apk/* \
-      /tmp/*           \
-      /var/tmp/*       \
+      /var/cache/apk/*  \
+      /tmp/*            \
+      /var/tmp/*        \
     && \
     \
     echo "OK!"
@@ -55,6 +73,6 @@ RUN  chmod -R a+X                    /docker-entrypoint.sh
 RUN mkdir -p /opt/app /opt/log /opt/data
 WORKDIR      /opt/app
 
+EXPOSE 2222 8000
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
-#CMD        [ "yarn", "run", "do-run" ]
 CMD        [ "node", "./index.js" ]

@@ -59,16 +59,16 @@ RUN \
     \
     && \
     echo "===> Cleaning up ..."  && \
-    yarn cache clean \
-    && \
+    yarn cache clean && \
     \
+    && \
     rm -rf \
-      "${HOME}/.cache" \
+      "${HOME}/.cache"  \
       "${HOME}/.config" \
-      "${HOME}/.pm2" \
-      /var/cache/apk/* \
-      /tmp/*               \
-      /var/tmp/*           \
+      "${HOME}/.pm2"    \
+      /var/cache/apk/*  \
+      /tmp/*            \
+      /var/tmp/*        \
     && \
     \
     echo "OK!"
@@ -97,6 +97,4 @@ WORKDIR      /opt/app
 
 EXPOSE 2222 8000
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
-#CMD        [ "yarn", "run", "do-run-pm2" ]
-#CMD        [ "yarn", "run", "do-run-ndm" ]
-#CMD        [ "pm2-docker", "start", "--auto-exit", "--env", "production", "process.yml" ]
+CMD        [ "pm2-docker", "start", "--auto-exit", "--env", "production", "process.yml" ]
