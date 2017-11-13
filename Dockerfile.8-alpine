@@ -28,8 +28,8 @@ RUN \
             \
             git \
             make \
-    \
     && \
+    \
     echo "===> Checking versions..."  && \
     node --version && \
     npm --version  && \
@@ -38,14 +38,14 @@ RUN \
     \
     git --version && \
     \
-    && \
     echo "===> OpenSSH Setup..."  && \
         apk --update add \
         openssh \
         tcptraceroute \
-    && echo "cd ~" >> /etc/bash.bashrc \
-    \
     && \
+    \
+    echo "cd ~" >> /etc/bash.bashrc && \
+    \
     echo "===> Cleaning up ..."  && \
     rm -rf \
       "${HOME}/.cache"  \

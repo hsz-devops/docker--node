@@ -50,18 +50,17 @@ RUN \
     \
     git --version && \
     \
-    && \
     echo "===> OpenSSH Setup..."  && \
         apk --update add \
         openssh \
         tcptraceroute \
-    && echo "cd ~" >> /etc/bash.bashrc \
-    \
     && \
+    \
+    echo "cd ~" >> /etc/bash.bashrc && \
+    \
     echo "===> Cleaning up ..."  && \
     yarn cache clean && \
     \
-    && \
     rm -rf \
       "${HOME}/.cache"  \
       "${HOME}/.config" \
