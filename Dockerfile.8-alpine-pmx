@@ -2,6 +2,14 @@ FROM node:8-alpine
 # FROM keymetrics/pm2:8
 # # FROM really/node-pm2-git
 
+# ----------------------------------------------------------------------------------------
+ARG AZ__OPENSSH_SERVER__ENABLE
+ENV AZ__OPENSSH_SERVER__ENABLE=${AZ__OPENSSH_SERVER__ENABLE:-0}
+
+ARG AZ__OPENSSH_SERVER__PASSWD
+ENV AZ__OPENSSH_SERVER__PASSWD=${AZ__OPENSSH_SERVER__PASSWD:-root:Docker!}
+
+# ----------------------------------------------------------------------------------------
 RUN \
     echo "===> Updating TLS certificates..."         && \
     apk --update add \
@@ -42,6 +50,14 @@ RUN \
     \
     git --version && \
     \
+    && \
+    echo "===> OpenSSH Setup..."  && \
+        apk --update add \
+        openssh \
+        tcptraceroute \
+    && echo "cd ~" >> /etc/bash.bashrc \
+    \
+    && \
     echo "===> Cleaning up ..."  && \
     yarn cache clean \
     && \
@@ -79,6 +95,7 @@ ENV MONITORING_CLI_ARGS=${MONITORING_CLI_ARGS}
 RUN mkdir -p /opt/app /opt/log /opt/data
 WORKDIR      /opt/app
 
+EXPOSE 2222 8000
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 #CMD        [ "yarn", "run", "do-run-pm2" ]
 #CMD        [ "yarn", "run", "do-run-ndm" ]
