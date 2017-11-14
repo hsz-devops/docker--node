@@ -7,12 +7,14 @@ set -o pipefail
 pwd
 echo "Entering /docker-entrypoint.sh [nop] with args [$@]"
 
+set -x
 if [ "${ENTRYPOINT_ROOT_DIR}" != "" ]; then
     cd "${ENTRYPOINT_ROOT_DIR}"
     pwd
 fi
 
 # using exec to transfer PID 1 to whatever is executed
+
 if [ -x /opt/runt/entrypoint-cmd.sh ]; then
     # hook for something else
     set -x

@@ -59,8 +59,8 @@ RUN \
 
 
 # ----------------------------------------------------------------------------------------
-COPY ./_docker/docker-entrypoint.sh  /docker-entrypoint.sh
-RUN  chmod -R a+X                    /docker-entrypoint.sh
+COPY ./_docker/docker-entrypoint.nop.sh  /docker-entrypoint.sh
+RUN  chmod -R a+X                        /docker-entrypoint.sh
 
 # # ----------------------------------------------------------------------------------------
 # RUN \

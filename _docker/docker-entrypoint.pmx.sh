@@ -9,7 +9,7 @@ echo "Entering /docker-entrypoint.sh [pmx] with args [$@]"
 
 # instructions for Azure AppService on Linux from
 # https://docs.microsoft.com/en-us/azure/app-service/containers/tutorial-custom-docker-image
-
+set -x
 if [ "${AZ__OPENSSH_SERVER__ENABLE}" == "1" ]; then
     if [ -n "${AZ__OPENSSH_SERVER__PASSWD}" ]; then
         # configuring SSH to start
@@ -51,7 +51,7 @@ esac
 # all the previous cases are supposed go their own way...
 # in this case, we just ignore the settings and continue
 
-if [ -e /opt/runt/entrypoint-cmd.sh ]; then
+if [ -x /opt/runt/entrypoint-cmd.sh ]; then
     # hook for something else
     set -x
     exec /opt/runt/entrypoint-cmd.sh "$@"

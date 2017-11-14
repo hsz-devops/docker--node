@@ -10,10 +10,10 @@ version: "2.3"
 services:
 
   node-8-alpine:
-    image: ez123/node:8-alpine
+    image: ez123/node:8-alpine-nop
     build:
       context:   .
-      dockerfile: ./Dockerfile.8-alpine
+      dockerfile: ./Dockerfile.8-alpine-nop
       # args:
       #   - NODE_ENV=production
       #   - NODE_PORT=8088
@@ -29,13 +29,13 @@ services:
       #   - NODE_PORT=8088
       #   - ENTRYPOINT_ROOT_DIR=/opt/app
 
-  node-8:
-    image: ez123/node:8
-    build:
-      context:   .
-      dockerfile: ./Dockerfile.8
-      # args:
-      #   - NODE_ENV=production
-      #   - NODE_PORT=8088
-      #   - ENTRYPOINT_ROOT_DIR=/opt/app
+  # node-8:
+  #   image: ez123/node:8
+  #   build:
+  #     context:   .
+  #     dockerfile: ./Dockerfile.8
+  #     # args:
+  #     #   - NODE_ENV=production
+  #     #   - NODE_PORT=8088
+  #     #   - ENTRYPOINT_ROOT_DIR=/opt/app
 

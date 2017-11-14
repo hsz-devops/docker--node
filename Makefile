@@ -8,7 +8,7 @@ pull:
 
 .PHONY: build-alpine
 build-alpine:
-	docker-compose build --force-rm --pull node-8-alpine
+	docker-compose build --force-rm --pull node-8-alpine-nop
 	docker-compose build --force-rm --pull node-8-alpine-pmx
 
 .PHONY: build
