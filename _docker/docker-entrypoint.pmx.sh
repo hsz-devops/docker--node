@@ -5,6 +5,7 @@
 set -e
 set -o pipefail
 pwd
+echo "Entering /docker-entrypoint.sh [pmx] with args [$@]"
 
 # instructions for Azure AppService on Linux from
 # https://docs.microsoft.com/en-us/azure/app-service/containers/tutorial-custom-docker-image

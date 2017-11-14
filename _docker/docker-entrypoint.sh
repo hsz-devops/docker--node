@@ -5,6 +5,7 @@
 set -e
 set -o pipefail
 pwd
+echo "Entering /docker-entrypoint.sh [nop] with args [$@]"
 
 if [ "${ENTRYPOINT_ROOT_DIR}" != "" ]; then
     cd "${ENTRYPOINT_ROOT_DIR}"
