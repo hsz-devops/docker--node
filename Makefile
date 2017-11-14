@@ -24,3 +24,5 @@ purge:
 	docker rm  $$(docker ps -a -q)                      || true
 	docker rmi $$(docker images -q -f dangling=true)    || true
 
+test_az:
+	docker run --rm -it ez123/node:8-alpine-pmx bash -c "AZ__OPENSSH_SERVER__ENABLE=1 /docker-entrypoint.sh sleep 10"

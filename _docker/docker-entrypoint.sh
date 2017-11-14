@@ -12,7 +12,7 @@ if [ "${ENTRYPOINT_ROOT_DIR}" != "" ]; then
 fi
 
 # using exec to transfer PID 1 to whatever is executed
-if [ -e /opt/runt/entrypoint-cmd.sh ]; then
+if [ -x /opt/runt/entrypoint-cmd.sh ]; then
     # hook for something else
     set -x
     exec /opt/runt/entrypoint-cmd.sh "$@"

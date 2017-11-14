@@ -10,7 +10,7 @@ pwd
 # https://docs.microsoft.com/en-us/azure/app-service/containers/tutorial-custom-docker-image
 
 if [ "${AZ__OPENSSH_SERVER__ENABLE}" == "1" ]; then
-    if [ "${AZ__OPENSSH_SERVER__PASSWD}" != "" ]; then
+    if [ -n "${AZ__OPENSSH_SERVER__PASSWD}" ]; then
         # configuring SSH to start
         echo "${AZ__OPENSSH_SERVER__PASSWD}" | chpasswd
         echo "cd $(pwd)" >> /etc/bash.bashrc
