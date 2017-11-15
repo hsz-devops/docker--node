@@ -77,6 +77,8 @@ RUN \
 COPY ./_docker/docker-entrypoint.pmx.sh  /docker-entrypoint.sh
 RUN  chmod -R a+X                        /docker-entrypoint.sh
 
+COPY ./_root/etc/ssh/sshd_config         /etc/ssh/
+
 ARG MONITORING_TYPE
 ENV MONITORING_TYPE=${MONITORING_TYPE}
 
