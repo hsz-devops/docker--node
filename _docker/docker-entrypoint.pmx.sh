@@ -7,6 +7,11 @@ set -o pipefail
 pwd
 echo "Entering /docker-entrypoint.sh [pmx] with args [$@]"
 
+exec_via__init() {
+    set -x
+    exec /usr/bin/dumb-init -- exec "$@"
+}
+
 # instructions for Azure AppService on Linux from
 # https://docs.microsoft.com/en-us/azure/app-service/containers/tutorial-custom-docker-image
 set -x
@@ -51,11 +56,13 @@ esac
 # all the previous cases are supposed go their own way...
 # in this case, we just ignore the settings and continue
 
-if [ -x /opt/runt/entrypoint-cmd.sh ]; then
-    # hook for something else
-    set -x
-    exec /opt/runt/entrypoint-cmd.sh "$@"
-else
-    set -x
-    exec "$@"
-fi
+# using exec to transfer PID 1 to whatever is executed
+
+# if [ -x /opt/runt/entrypoint-cmd.sh ]; then
+#     set -x
+#     exec /opt/runt/entrypoint-cmd.sh "$@"
+# else
+#     set -x
+#     exec "$@"
+# fi
+exec_via__init "$@"

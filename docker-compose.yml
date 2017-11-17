@@ -9,7 +9,7 @@ version: "2.3"
 
 services:
 
-  node-8-alpine:
+  node-8-alpine-nop:
     image: ez123/node:8-alpine-nop
     build:
       context:   .
