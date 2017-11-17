@@ -1,5 +1,7 @@
 FROM node:8-alpine
 
+# https://engineeringblog.yelp.com/2016/01/dumb-init-an-init-for-docker.html
+
 # ----------------------------------------------------------------------------------------
 ARG AZ__OPENSSH_SERVER__ENABLE
 ENV AZ__OPENSSH_SERVER__ENABLE=${AZ__OPENSSH_SERVER__ENABLE:-0}

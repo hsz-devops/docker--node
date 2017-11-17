@@ -9,7 +9,7 @@ echo "Entering /docker-entrypoint.sh [pmx] with args [$@]"
 
 exec_via__init() {
     set -x
-    exec /usr/bin/dumb-init -- exec "$@"
+    exec /usr/bin/dumb-init -- "$@"
 }
 
 # instructions for Azure AppService on Linux from
