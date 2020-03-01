@@ -6,10 +6,10 @@ all: build
 pull:
 	docker-compose pull --parallel
 
-.PHONY: push
-push:
-	docker-compose push
-
+# push disabled as this is supposed to be build on docker hub
+# .PHONY: push
+# push:
+# 	docker-compose push
 
 .PHONY: build-alpine
 build-alpine:
