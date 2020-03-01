@@ -75,6 +75,7 @@ RUN \
     \
     echo "OK!"
 
+SHELL ["/bin/bash", "-c"]
 
 # ----------------------------------------------------------------------------------------
 COPY ./_docker/docker-entrypoint.pmx.sh  /docker-entrypoint.sh
