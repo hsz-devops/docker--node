@@ -1,6 +1,6 @@
 ---
 # v1.2.1   webmaster@highskillz.com
-# 
+#
 # using docker-compose to make builds easier
 #   docker-compose build --force-rm --pull
 #   docker-compose build --force-rm --pull --no-cache
@@ -39,3 +39,22 @@ services:
   #     #   - NODE_PORT=8088
   #     #   - ENTRYPOINT_ROOT_DIR=/opt/app
 
+  node-12-alpine-nop:
+    image: ez123/node:12-alpine-nop
+    build:
+      context:   .
+      dockerfile: ./Dockerfile.12-alpine-nop
+      # args:
+      #   - NODE_ENV=production
+      #   - NODE_PORT=8088
+      #   - ENTRYPOINT_ROOT_DIR=/opt/app
+
+  node-12-alpine-pmx:
+    image: ez123/node:12-alpine-pmx
+    build:
+      context:   .
+      dockerfile: ./Dockerfile.12-alpine-pmx
+      # args:
+      #   - NODE_ENV=production
+      #   - NODE_PORT=8088
+      #   - ENTRYPOINT_ROOT_DIR=/opt/app
