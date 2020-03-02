@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:12-alpine3.11
 # FROM keymetrics/pm2:8
 # # FROM really/node-pm2-git
 

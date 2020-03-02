@@ -1,4 +1,4 @@
-FROM node:8-alpine
+FROM node:8-alpine3.11
 # FROM keymetrics/pm2:8
 # # FROM really/node-pm2-git
 
@@ -78,16 +78,8 @@ RUN \
 SHELL ["/bin/bash", "-c"]
 
 # ----------------------------------------------------------------------------------------
-COPY ./_docker/docker-entrypoint.pmx.sh  /docker-entrypoint.sh
+COPY ./_docker/docker-entrypoint.nop.sh  /docker-entrypoint.sh
 RUN  chmod -R a+xX                       /docker-entrypoint.sh
-
-COPY ./_root/etc/ssh/sshd_config         /etc/ssh/
-
-ARG MONITORING_TYPE
-ENV MONITORING_TYPE=${MONITORING_TYPE}
-
-ARG MONITORING_CLI_ARGS
-ENV MONITORING_CLI_ARGS=${MONITORING_CLI_ARGS}
 
 # # ----------------------------------------------------------------------------------------
 # RUN \
@@ -102,4 +94,4 @@ WORKDIR      /opt/app
 
 EXPOSE 2222 8000
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
-CMD        [ "pm2-docker", "start", "--auto-exit", "--env", "production", "process.yml" ]
+CMD        [ "node", "./index.js" ]
