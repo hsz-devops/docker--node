@@ -1,0 +1,105 @@
+# FROM node:12-buster
+FROM node:12-buster-slim
+
+# https://engineeringblog.yelp.com/2016/01/dumb-init-an-init-for-docker.html
+
+# ----------------------------------------------------------------------------------------
+ARG AZ__OPENSSH_SERVER__ENABLE
+ENV AZ__OPENSSH_SERVER__ENABLE=${AZ__OPENSSH_SERVER__ENABLE:-0}
+
+ARG AZ__OPENSSH_SERVER__PASSWD
+ENV AZ__OPENSSH_SERVER__PASSWD=${AZ__OPENSSH_SERVER__PASSWD:-root:Docker!}
+
+# ----------------------------------------------------------------------------------------
+ENV DEBIAN_FRONTEND="noninteractive"
+
+RUN \
+    echo "===> Enabling Multiverse..."  && \
+    # sed -i "/^# deb.*multiverse/ s/^# //" /etc/apt/sources.list && \
+    \
+    echo "===> Speeding up apt and dpkg..."  && \
+    echo "force-unsafe-io"                 > /etc/dpkg/dpkg.cfg.d/02apt-speedup         && \
+    echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache               && \
+    echo "APT::Install-Recommends \"0\";"  > /etc/apt/apt.conf.d/no-install-recommend   && \
+    echo "APT::Install-Suggests \"0\";"    > /etc/apt/apt.conf.d/no-install-suggest     && \
+    \
+    echo "===> Initial packages update"  && \
+    apt-get    update  && \
+    apt-get -y install \
+          apt-transport-https \
+          lsb-release \
+          software-properties-common \
+    && \
+    \
+    echo "===> Adding PPAs..."  && \
+    apt-get    update  && \
+    \
+    echo "===> Updating TLS certificates..."         && \
+    apt-get -y install \
+            ca-certificates \
+            openssl \
+            ssl-cert \
+    && \
+    \
+    echo "===> Adding usefull packages for devops shell-works..."  && \
+    apt-get -y install  \
+            dumb-init \
+            coreutils \
+            file \
+            make \
+            less \
+            nano \
+            jq \
+            \
+            curl \
+            wget \
+            \
+            zip \
+            xz-utils \
+            git \
+    && \
+    \
+    echo "===> Checking versions..."  && \
+    node --version && \
+    npm --version  && \
+    yarn --version && \
+    \
+    git --version && \
+    \
+    echo "===> OpenSSH Setup..."  && \
+    apt-get -y install \
+        openssh-server \
+        tcptraceroute \
+    && \
+    \
+    echo "cd ~" >> /etc/bash.bashrc && \
+    \
+    echo "===> Cleaning up ..."  && \
+    rm -rf \
+      "${HOME}/.cache"  \
+      "${HOME}/.config" \
+      /var/cache/apk/*  \
+      /tmp/*            \
+      /var/tmp/*        \
+    && \
+    \
+    echo "OK!"
+
+# ----------------------------------------------------------------------------------------
+COPY ./_docker/docker-entrypoint.nop.sh  /docker-entrypoint.sh
+RUN  chmod -R a+xX                       /docker-entrypoint.sh
+
+# # ----------------------------------------------------------------------------------------
+# RUN \
+#      groupadd -r nodejs \
+#   && useradd -m -r -g nodejs nodejs
+#
+# USER nodejs
+#
+# ----------------------------------------------------------------------------------------
+RUN mkdir -p /opt/app /opt/log /opt/data
+WORKDIR      /opt/app
+
+EXPOSE 2222 8000
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
+CMD        [ "node", "./index.js" ]

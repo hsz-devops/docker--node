@@ -58,3 +58,14 @@ services:
       #   - NODE_ENV=production
       #   - NODE_PORT=8088
       #   - ENTRYPOINT_ROOT_DIR=/opt/app
+
+  node-12-buster-nop:
+    image: ez123/node:12-buster-nop
+    build:
+      context:   .
+      dockerfile: ./Dockerfile.12-buster-nop
+      # args:
+      #   - NODE_ENV=production
+      #   - NODE_PORT=8088
+      #   - ENTRYPOINT_ROOT_DIR=/opt/app
+

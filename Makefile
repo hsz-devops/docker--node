@@ -13,10 +13,14 @@ pull:
 
 .PHONY: build-alpine
 build-alpine:
-	docker-compose build --force-rm --pull node-8-alpine-nop
-	docker-compose build --force-rm --pull node-8-alpine-pmx
 	docker-compose build --force-rm --pull node-12-alpine-nop
 	docker-compose build --force-rm --pull node-12-alpine-pmx
+	docker-compose build --force-rm --pull node-8-alpine-nop
+	docker-compose build --force-rm --pull node-8-alpine-pmx
+
+.PHONY: build-deb
+build-deb:
+	docker-compose build --force-rm --pull node-12-buster-nop
 
 .PHONY: build
 build:
@@ -31,5 +35,8 @@ purge:
 	docker rm  $$(docker ps -a -q)                      || true
 	docker rmi $$(docker images -q -f dangling=true)    || true
 
-test_az:
+test_az_pmx:
 	docker run --rm -it ez123/node:12-alpine-pmx bash -c "AZ__OPENSSH_SERVER__ENABLE=1 /docker-entrypoint.sh sleep 10"
+
+test_az_nop:
+	docker run --rm -it ez123/node:12-alpine-nop bash -c "AZ__OPENSSH_SERVER__ENABLE=1 /docker-entrypoint.sh sleep 10"
